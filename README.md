@@ -13,10 +13,10 @@ e2e-mobile-challenge is an e2e framework. It was developed using Java, gradle, a
 ```bash
 brew install git
 ```
-## 2. Clone e2e-mobile-tests project from gitHub
+## 2. Clone e2e-mobile-challenge project from gitHub
 
 ```bash
-git clone git@github.com:lafourchette/e2e-mobile-tests.git
+git clone git@github.com:alandiaz08/e2e-mobile-challenge.git
 ```
 
 ## 3. Install Java 11 SDK
