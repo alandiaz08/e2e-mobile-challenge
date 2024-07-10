@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="FATAL">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%maxLen{%highlight{%d{HH:mm:ss.SSS} [%thread] %-5level %class{1}.%method - %msg}}{240}%n"/>
+        </Console>
+        <Routing name="Routing">
+            <Routes pattern="$${ctx:threadId}">
+                <Route>
+                    <File name="FileAppender-${ctx:threadId}" fileName="build/logs/${ctx:threadId}.log" append="false">
+                        <PatternLayout>
+                            <Pattern>%d{HH:mm:ss.SSS} %-5level %class{1}.%method - %msg%n</Pattern>
+                        </PatternLayout>
+                    </File>
+                </Route>
+            </Routes>
+        </Routing>
+        <File name="elasticsearch" fileName="/proc/1/fd/1" append="false">
+            <PatternLayout>
+                <Pattern>%msg%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <Logger name="es.logger" additivity="false">
+            <AppenderRef ref="elasticsearch" />
+        </Logger>
+        <Root level="debug">
+            <AppenderRef ref="Console" level="info"/>
+            <AppenderRef ref="Routing" />
+        </Root>
+    </Loggers>
+</Configuration>
