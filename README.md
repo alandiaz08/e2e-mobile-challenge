@@ -104,14 +104,14 @@ If the configurations for has been set already, skip this step
 </kbd>
 </p>
 
-* From the root folder of the e2e-mobile-tests project and execute the following command to run the tests.
+* From the root folder of the e2e-mobile-challenge project and execute the following command to run the tests.
 
   ```bash
    cd e2e-web-tests
   ./gradlew test -Dplatform=android -DdriverMode=local -Ddevice="Name of the android virtual device from android studio" -DosVersion=11.0 
   ```
 
-This will execute all the tests of the e2e-mobile-tests project on android.
+This will execute all the tests of the e2e-mobile-challenge project on android.
 
 ### 4.1 Intellij
 
@@ -124,5 +124,16 @@ Create a run configuration with the following arguments,
 <p align="center">
 <kbd>
   <img src="images/local_android.PNG" width="600" height="350"/>
+</kbd>
+</p>
+
+##  11. Report
+
+* From the root folder of the e2e-mobile-challenge project -> build -> extent -> HtmlReport -> ExtentHtml.html
+
+
+<p align="center">
+<kbd>
+  <img src="images/report.PNG" width="600" height="350"/>
 </kbd>
 </p>
