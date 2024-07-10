@@ -39,7 +39,7 @@ public class AndroidHomeRidesScreen extends AbstractScreen {
    */
   public AndroidHomeRidesScreen() {
     super();
-    logger.debug("Initilizing home rides Screen screen");
+    TestReporter.addInfoToReport("Initilizing home rides Screen screen");
     PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     isLoaded(getContentScreenContainer);
   }
@@ -48,7 +48,7 @@ public class AndroidHomeRidesScreen extends AbstractScreen {
    * Clicks on continue button.
    */
   public AndroidSideMenu openSideMenu() {
-    logger.debug("Clicks on continue button");
+    TestReporter.addInfoToReport("Clicks on continue button");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(sideMenuButton));
     sideMenuButton.click();

@@ -36,17 +36,17 @@ public class AndroidProfileWidget extends AbstractWidget {
   private MobileElement sideMenuContainer;
 
   /**
-   * Initializes the side menu with the container.
+   * Initializes the profile widget with the container.
    *
    * @param container the element that contains the widget.
    */
   public AndroidProfileWidget(MobileElement container) {
     super(container);
     PageFactory.initElements(new AppiumFieldDecorator(container), this);
-    logger.debug("Initialising the Side menu");
+    TestReporter.addInfoToReport("Initialising the profile widget");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(picture));
-    TestReporter.addScreenshotToReport("Android side menu widget is loaded successfully");
+    TestReporter.addScreenshotToReport("Android profile widget is loaded successfully");
   }
 
   /**
@@ -55,7 +55,7 @@ public class AndroidProfileWidget extends AbstractWidget {
    * @return true if the profile picture is displayed, false otherwise.
    */
   public boolean isPictureDisplayed() {
-    logger.debug("Checking if the profile picture is displayed");
+    TestReporter.addInfoToReport("Checking if the profile picture is displayed");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     try {
       wait.until(ExpectedConditions.visibilityOf(picture));
@@ -72,7 +72,7 @@ public class AndroidProfileWidget extends AbstractWidget {
    * @param firstName The first name to enter.
    */
   public AndroidProfileWidget enterFirstName(String firstName) {
-    logger.debug("Entering first name: " + firstName);
+    TestReporter.addInfoToReport("Entering first name: " + firstName);
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(firstNameField));
     firstNameField.clear();
@@ -86,7 +86,7 @@ public class AndroidProfileWidget extends AbstractWidget {
    * @param lastName The last name to enter.
    */
   public AndroidProfileWidget enterLastName(String lastName) {
-    logger.debug("Entering last name: " + lastName);
+    TestReporter.addInfoToReport("Entering last name: " + lastName);
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(lastNameField));
     lastNameField.clear();
@@ -98,7 +98,7 @@ public class AndroidProfileWidget extends AbstractWidget {
    * Clicks the done button.
    */
   public AndroidSideMenu clickDoneButton() {
-    logger.debug("Clicking the done button");
+    TestReporter.addInfoToReport("Clicking the done button");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.elementToBeClickable(doneButton));
     doneButton.click();

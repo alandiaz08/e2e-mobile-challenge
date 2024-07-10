@@ -71,7 +71,7 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
   public AndroidPhoneNumberWidget(MobileElement container) {
     super(container);
     PageFactory.initElements(new AppiumFieldDecorator(container), this);
-    logger.debug("Initialising the AndroidPhoneNumber widget");
+    TestReporter.addInfoToReport("Initialising the AndroidPhoneNumber widget");
     driver.hideKeyboard();
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(phoneNumberField));
@@ -85,7 +85,7 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
    * @return AndroidPhoneNumberWidget
    */
   public AndroidPhoneNumberWidget setCountryCode(CountryCode countryCode, String areaCode) {
-    logger.debug("Set country code on AndroidPhoneNumber component");
+    TestReporter.addInfoToReport("Set country code on AndroidPhoneNumber component");
     countryCodeButton.click();
     WebDriverWait wait = new WebDriverWait(AppiumDriverBase.getDriver(), WAIT_TIMEOUT);
 
@@ -119,7 +119,7 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
    * @param phoneNumber String
    */
   public AndroidPhoneNumberWidget setPhoneNumber(String phoneNumber) {
-    logger.debug("Setting phone number as: {}", phoneNumber);
+    TestReporter.addInfoToReport("Setting phone number as: " + phoneNumber);
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(phoneNumberField));
     phoneNumberField.clear();
@@ -131,7 +131,7 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
    * Clicks on continue button.
    */
   public AndroidValidateCodeNumberWidget clickContinueButton() {
-    logger.debug("Clicks on continue button");
+    TestReporter.addInfoToReport("Clicks on continue button");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.elementToBeClickable(continueButton));
     continueButton.click();
@@ -146,7 +146,7 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
    * @return true if the title is displayed, false otherwise.
    */
   public boolean isTitleDisplayed() {
-    logger.debug("Checking if the title is displayed");
+    TestReporter.addInfoToReport("Checking if the title is displayed");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     try {
       wait.until(ExpectedConditions.visibilityOf(title));
@@ -163,11 +163,11 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
    * @return the text of the title.
    */
   public String getTitleText() {
-    logger.debug("Getting the text of the title");
+    TestReporter.addInfoToReport("Getting the text of the title");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(title));
     String titleText = title.getText();
-    logger.info("Title text: " + titleText);
+    TestReporter.addInfoToReport("Title text: " + titleText);
     return titleText;
   }
 
@@ -177,7 +177,7 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
    * @return true if the description is displayed, false otherwise.
    */
   public boolean isDescriptionDisplayed() {
-    logger.debug("Checking if the description is displayed");
+    TestReporter.addInfoToReport("Checking if the description is displayed");
     try {
       WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
       wait.until(ExpectedConditions.visibilityOf(description));
@@ -194,7 +194,7 @@ public class AndroidPhoneNumberWidget extends AbstractWidget {
    * @return the text of the description.
    */
   public String getDescriptionText() {
-    logger.debug("Getting the text of the description");
+    TestReporter.addInfoToReport("Getting the text of the description");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(description));
     String descriptionText = description.getText();

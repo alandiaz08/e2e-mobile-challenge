@@ -37,14 +37,10 @@ public abstract class AbstractScreen {
   private static final int HALF = 2;
   private static final double ANCHOR_PERCENTAGE = 0.5;
   private static final double START_POINT_PERCENTAGE = 0.5;
-  private static final double NEW_START_POINT_PERCENTAGE = 0.8;
   private static final double START_POINT_PERCENTAGE_LONG = 0.95;
   private static final double END_POINT_PERCENTAGE = 0.1;
 
   private static final int TIMEOUT = 1500;
-  private static final int HORIZONTAL_TIMEOUT = 500;
-  protected static final int WAIT_SCROLL = 2;
-  protected static final int WAIT = 2;
 
   public AbstractScreen() {
     driver = AppiumDriverBase.getDriver();
@@ -91,143 +87,6 @@ public abstract class AbstractScreen {
     touchAction.press(PointOption.point(anchor, startPoint))
             .waitAction(WaitOptions.waitOptions(Duration.ofMillis(TIMEOUT)))
             .moveTo(PointOption.point(anchor, endPoint)).release().perform();
-  }
-
-  /**
-   * Short Scroll down vertically to element.
-   *
-   * @param selector element to scroll to
-   * @param maxTries number of retries
-   */
-  protected void shortScrollToAnElement(By selector, int maxTries) {
-    logger.debug("Scroll down to element {}", selector);
-    WebDriverWait waitScroll = new WebDriverWait(driver, WAIT_SCROLL);
-    int scrollAttempt = 0;
-    while (scrollAttempt < maxTries) {
-      try {
-        logger.debug("Attempt {} to find element", scrollAttempt);
-        waitScroll.until(ExpectedConditions.visibilityOfElementLocated(selector));
-        break;
-      } catch (Exception e) {
-        logger.debug("Element not found in the screen, scroll to find", e);
-        scrollDown();
-        scrollAttempt++;
-      }
-    }
-    if (scrollAttempt >= maxTries) {
-      logger.debug("Last attempt to find the element");
-      driver.findElement(selector);
-    }
-  }
-
-  /**
-   * Long Scroll down vertically to element.
-   *
-   * @param selector element to scroll to
-   * @param maxTries number of retries
-   */
-  protected void longScrollToAnElement(By selector, int maxTries) {
-    logger.debug("Scroll down to element {}", selector);
-    int scrollAttempt = 0;
-    WebDriverWait waitScroll = new WebDriverWait(driver, WAIT_SCROLL);
-    while (scrollAttempt < maxTries) {
-      try {
-        logger.debug("Attempt {} to find element", scrollAttempt);
-        waitScroll.until(ExpectedConditions.visibilityOfElementLocated(selector));
-        break;
-      } catch (Exception e) {
-        logger.debug("Element not found in the screen, scroll to find", e);
-        longScroll();
-        scrollAttempt++;
-      }
-    }
-    if (scrollAttempt >= maxTries) {
-      logger.debug("Last attempt to find the element");
-      driver.findElement(selector);
-    }
-  }
-
-  /**
-   * scroll in android based on text.
-   *
-   * @param text Text to look for.
-   */
-  protected void uiAutomatorScrollWithText(String text) {
-    logger.debug("Scroll in android based on text");
-    driver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable"
-            + "(new UiSelector()).scrollIntoView(new UiSelector().text(\"" + text
-            + "\"));"));
-  }
-
-  /**
-   * Swipe horizontal to element.
-   *
-   * @param element element to scroll to
-   */
-  protected void horizontalSwipeToAnElementInList(By element) {
-    logger.debug("Get location of element you want to swipe");
-    List<MobileElement> elementList = driver.findElements(element);
-    int finalElement = elementList.size() - 1;
-    final Point bannerPoint = elementList.get(finalElement).getLocation();
-
-    logger.debug("Get size of device screen");
-    Dimension screenSize = driver.manage().window().getSize();
-
-    logger.debug("Get start and end coordinates for horizontal swipe");
-    int startX = Math.toIntExact(Math.round(screenSize.getWidth() * START_POINT_PERCENTAGE));
-    int endX = 0;
-
-    TouchAction action = new TouchAction(driver);
-
-    logger.debug("Start the horizontal swipe");
-    action
-            .press(PointOption.point(startX, bannerPoint.getY()))
-            .waitAction(WaitOptions.waitOptions(Duration.ofMillis(WAIT_HORIZONTAL_SWIPE)))
-            .moveTo(PointOption.point(endX, bannerPoint.getY()))
-            .release();
-    driver.performTouchAction(action);
-  }
-
-  /**
-   * Swipe right on an element.
-   *
-   * @param element element to scroll to.
-   */
-  protected void swipeRightOnAnElement(By element) {
-    logger.debug("Get location of element you want to swipe");
-    final Point bannerPoint = driver.findElement(element).getLocation();
-
-    logger.debug("Get size of device");
-    Dimension screenSize = driver.manage().window().getSize();
-
-    logger.debug("Get start and end coordinates for horizontal swipe");
-    int startPointX = (int) (screenSize.width * END_POINT_PERCENTAGE);
-    int endPointX = (int) (screenSize.width * NEW_START_POINT_PERCENTAGE);
-
-    TouchAction action = new TouchAction(driver);
-
-    logger.debug("Start the horizontal swipe");
-    action
-            .press(PointOption.point(startPointX, bannerPoint.getY()))
-            .waitAction(WaitOptions.waitOptions(Duration.ofMillis(WAIT_HORIZONTAL_SWIPE)))
-            .moveTo(PointOption.point(endPointX, bannerPoint.getY()))
-            .release();
-    driver.performTouchAction(action);
-  }
-
-  /**
-   * Implicit wait.
-   *
-   * @param milliseconds milliseconds to wait.
-   */
-  protected void implicitWait(int milliseconds) {
-    logger.debug("Wait for 3 seconds...");
-    try {
-      Thread.sleep(milliseconds);
-    } catch (InterruptedException e) {
-      logger.error(e);
-      Thread.currentThread().interrupt();
-    }
   }
 
   /**

@@ -25,7 +25,8 @@ public class DemoTests extends TestBase {
           new SecureRandom(), RandomStringGenerator.LOWERCASE);
   @Test(
      groups = {"smoke"},
-     enabled = true)
+     enabled = true,
+     retryAnalyzer = TestBase.RetryAnalyzer.class)
   public void successfullyLogin() {
 
     //Arrange
@@ -53,7 +54,9 @@ public class DemoTests extends TestBase {
 
   @Test(
      groups = {"smoke"},
-     enabled = true)
+     enabled = true,
+     retryAnalyzer = TestBase.RetryAnalyzer.class)
+
   public void updateProfileAccount() {
 
     //Arrange
@@ -88,7 +91,9 @@ public class DemoTests extends TestBase {
 
   @Test(
      groups = {"smoke"},
-     enabled = true)
+     enabled = true,
+     retryAnalyzer = TestBase.RetryAnalyzer.class)
+
   public void successfullyLogout() {
 
     //Arrange

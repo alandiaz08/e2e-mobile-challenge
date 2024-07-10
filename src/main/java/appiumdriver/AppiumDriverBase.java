@@ -1,17 +1,24 @@
 package appiumdriver;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import environment.EnvironmentConfig;
 import io.appium.java_client.AppiumDriver;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.ThreadContext;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import utils.TestReporter;
 
 public class AppiumDriverBase {
 
@@ -33,6 +40,10 @@ public class AppiumDriverBase {
    */
   private static ThreadLocal<AppiumDriverFactory> appiumDriverThread;
 
+  private static ExtentSparkReporter sparkReporter;
+  private static ExtentTest test;
+  private static ExtentReports extentReport;
+
   /**
    * Protected constructor.
    */
@@ -46,6 +57,9 @@ public class AppiumDriverBase {
    */
   @BeforeSuite(alwaysRun = true)
   public static void startSuite() {
+
+    String projectPath = System.getProperty("user.dir");
+    TestReporter.initializeReporter("Test Report");
 
     ThreadContext.put(THREAD_ID, Thread.currentThread().getName());
     EnvironmentConfig.initializeEnvironment();
@@ -85,10 +99,13 @@ public class AppiumDriverBase {
    * Start Appium.
    */
   @BeforeMethod(alwaysRun = true)
-  public static void initiateAppiumDriver() {
+  public void initiateAppiumDriver(Method method) {
     try {
       logger.trace("Start appium");
       appiumDriverThread.get().resetDriver();
+      TestReporter.initializeReporter(this.getClass().getName());
+      TestReporter.createTest(method.getName());
+
     } catch (Exception ex) {
       logger.error("Unable to start appium", ex);
     }
@@ -98,11 +115,19 @@ public class AppiumDriverBase {
    * Quit the browser between tests.
    */
   @AfterMethod(alwaysRun = true, dependsOnMethods = { "finishTest" })
-  public static void quitAppiumDriver() {
+  public static void quitAppiumDriver(ITestResult result) {
     try {
       logger.debug("Get the session id of the test before quitting");
       logger.trace("Quit AppiumDriver");
       appiumDriverThread.get().quitDriver();
+
+      if (result.getStatus() == ITestResult.FAILURE) {
+        TestReporter.reportError(result.getThrowable().getMessage());
+      } else if (result.getStatus() == ITestResult.SUCCESS) {
+        TestReporter.reportSuccess("Test passed");
+      } else {
+        TestReporter.reportInfo("Test skipped");
+      }
     } catch (Exception ex) {
       logger.error("Unable to quit AppiumDriver", ex);
     }
@@ -131,6 +156,8 @@ public class AppiumDriverBase {
     }
     logger.trace("Remove AppiumDriver from ThreadLocal");
     appiumDriverThread.remove();
+
+    TestReporter.flushReport();
   }
 
   /**

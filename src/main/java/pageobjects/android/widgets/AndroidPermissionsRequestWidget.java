@@ -82,7 +82,7 @@ public class AndroidPermissionsRequestWidget extends AbstractWidget {
   }
 
   /**
-   * Clicks on continue button.
+   * Clicks on allow location button.
    */
   public AndroidPermissionsRequestWidget allowLocation() {
     logger.debug("Clicks on allow location button");
@@ -97,7 +97,7 @@ public class AndroidPermissionsRequestWidget extends AbstractWidget {
   }
 
   /**
-   * Clicks on continue button.
+   * Clicks on allow notifications button.
    */
   public AndroidPermissionsRequestWidget allowNotifications() {
     logger.debug("Clicks on allow notifications button");
@@ -112,7 +112,7 @@ public class AndroidPermissionsRequestWidget extends AbstractWidget {
   }
 
   /**
-   * Clicks on continue button.
+   * Allow permissions requests.
    */
   public AndroidPermissionsRequestWidget allowPermissionsRequests() {
     logger.debug("Allow permissions requests");

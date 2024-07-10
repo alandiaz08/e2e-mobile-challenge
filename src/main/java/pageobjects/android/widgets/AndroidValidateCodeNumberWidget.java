@@ -43,7 +43,7 @@ public class AndroidValidateCodeNumberWidget extends AbstractWidget {
   public AndroidValidateCodeNumberWidget(MobileElement container) {
     super(container);
     PageFactory.initElements(new AppiumFieldDecorator(container), this);
-    logger.debug("Initialising the AndroidValidateCodeNumber widget");
+    TestReporter.addInfoToReport("Initialising the AndroidValidateCodeNumber widget");
     driver.hideKeyboard();
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(validateCodeNumberTitle));
@@ -57,7 +57,7 @@ public class AndroidValidateCodeNumberWidget extends AbstractWidget {
    * @throws IllegalArgumentException if the length of the value exceeds the number of input fields.
    */
   public AndroidValidateCodeNumberWidget enterValueInEachField(String value) {
-    logger.debug("Starting to enter value in each input field");
+    TestReporter.addInfoToReport("Starting to enter value in each input field");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(inputFieldsBy));
     List<MobileElement> inputFieldsList = driver.findElements(inputFieldsBy);
@@ -79,7 +79,7 @@ public class AndroidValidateCodeNumberWidget extends AbstractWidget {
    * Clicks on continue button.
    */
   public AndroidHomeRidesScreen acceptAndGoToHomeRidesPage() {
-    logger.debug("Clicks on continue button");
+    TestReporter.addInfoToReport("Clicks on continue button");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(continueButton));
     continueButton.click();
@@ -91,7 +91,7 @@ public class AndroidValidateCodeNumberWidget extends AbstractWidget {
    * Clicks on continue button.
    */
   public AndroidPermissionsRequestWidget acceptAndGoToPermissionsRequestWidget() {
-    logger.debug("Clicks on continue button");
+    TestReporter.addInfoToReport("Clicks on continue button");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(continueButton));
     continueButton.click();

@@ -53,16 +53,16 @@ public class AndroidSideMenu extends AbstractWidget {
   public AndroidSideMenu(MobileElement container) {
     super(container);
     PageFactory.initElements(new AppiumFieldDecorator(container), this);
-    logger.debug("Initialising the Side menu");
+    TestReporter.addInfoToReport("Initialising the Side menu");
     wait.until(ExpectedConditions.visibilityOf(profileName));
     TestReporter.addScreenshotToReport("Android side menu widget is loaded successfully");
   }
 
   /**
-   * Clicks on continue button.
+   * Clicks on profile button.
    */
   public AndroidProfileWidget openProfile() {
-    logger.debug("Clicks on profile button");
+    TestReporter.addInfoToReport("Clicks on profile button");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.elementToBeClickable(profileButton));
     profileButton.click();
@@ -76,7 +76,7 @@ public class AndroidSideMenu extends AbstractWidget {
    * @return The text of the profile name.
    */
   public String getProfileName() {
-    logger.debug("Getting the text of the profile name");
+    TestReporter.addInfoToReport("Getting the text of the profile name");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.visibilityOf(profileName));
     return profileName.getText();
@@ -86,7 +86,7 @@ public class AndroidSideMenu extends AbstractWidget {
    * Clicks the logout button.
    */
   public AndroidPhoneNumberWidget logout() {
-    logger.debug("Clicking the logout button");
+    TestReporter.addInfoToReport("Clicking the logout button");
     WebDriverWait wait = new WebDriverWait(driver, WAIT_TIMEOUT);
     wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
     logoutButton.click();
@@ -101,7 +101,7 @@ public class AndroidSideMenu extends AbstractWidget {
    * @return true if the profile update success popup is displayed, false otherwise.
    */
   public boolean isProfileUpdatedSuccessfully() {
-    logger.debug("Checking if the profile update success popup is displayed");
+    TestReporter.addInfoToReport("Checking if the profile update success popup is displayed");
     try {
       wait.until(ExpectedConditions.visibilityOf(profileUpdatedSuccessfullyPopup));
       return profileUpdatedSuccessfullyPopup.isDisplayed();
