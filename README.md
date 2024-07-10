@@ -76,7 +76,7 @@ If the configurations for has been set already, skip this step
 
 <p align="center">
 <kbd>
-  <img src="Images/AppiumConfig.PNG" width="750" height="400" />
+  <img src="images/AppiumConfig.PNG" width="750" height="400" />
 </kbd>
 </p>
 
@@ -87,7 +87,7 @@ If the configurations for has been set already, skip this step
 
 <p align="center">
 <kbd>
-  <img src="Images/AndroidStudioConfig.PNG" width="750" height="400" />
+  <img src="images/AndroidStudioConfig.PNG" width="750" height="400" />
 </kbd>
 </p>
 
@@ -100,7 +100,7 @@ If the configurations for has been set already, skip this step
 
 <p align="center">
 <kbd>
-  <img src="Images/avd_manager.PNG" width="600" height="350"/>
+  <img src="images/avd_manager.PNG" width="600" height="350"/>
 </kbd>
 </p>
 
@@ -123,6 +123,6 @@ Create a run configuration with the following arguments,
 
 <p align="center">
 <kbd>
-  <img src="Images/local_android.PNG" width="600" height="350"/>
+  <img src="images/local_android.PNG" width="600" height="350"/>
 </kbd>
 </p>
